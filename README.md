@@ -2,4 +2,4 @@ Mashup
 ======
 
 
-URL: whoisduley.github.io/Mashup
+URL: http://whoisduley.github.io/Mashup/
