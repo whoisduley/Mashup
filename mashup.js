@@ -34,7 +34,5 @@ run = function() {
 
    	request.open('GET', theResource , true)
 
-	//request.open('GET','urlread.cgi',true)
-
 	request.send(null)
 }
