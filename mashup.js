@@ -1,3 +1,9 @@
+// 3 Columns, 3 tweets each, embed tweets not feed or collections
+// Key:Secret
+// njWdPM26IKC5fVwP9X7WLXQrk:oSgM4BfF3XdLdLAGci1Cz6bqgfi9ix3nUrhn55uetBhvjLVyN3
+// Base64 Encoded
+// bmpXZFBNMjZJS0M1ZlZ3UDlYN1dMWFFyazpvU2dNNEJmRjNYZExkTEFHY2kxQ3o2YnFnZmk5aXgzblVyaG41NXVldEJodmpMVnlOMw==
+
 var list = [];
 
 run = function() {
