@@ -54,8 +54,30 @@ getInfo = function(tag) {
 		if (request.readyState == 4) 
 			if(request.status == 200) {
 			var res = eval('(' + request.responseText + ')');
-			console.log(tag + ' : ' + res.results[0].description);
+			var item = document.createElement('li');
+			item.innerHTML = tag + ' : ' + res.results[0].description;
+			var display = document.getElementById('display');
+			display.appendChild(item);
 		}
 	}
 }
 
+// getTweets = function(tag) {
+// 	var request = new XMLHttpRequest();
+
+// 	var query = tag;
+// 	var theResource = 'https://api.twitter.com/1.1/search/tweets.json?q=corgi&callback=myCallback';
+
+// 	request.open('GET', theResource, true);
+// 	request.setRequestHeader('Authorization', 'OAuth oauth_consumer_key="njWdPM26IKC5fVwP9X7WLXQrk", oauth_nonce="a773cbf49fe2757b08a0958ae8b50876", oauth_signature="KKsVEKatHaUGBeDjEWKuwdKnimU%3D", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1414610677", oauth_token="192993213-Y18fiSCH9ScnBiZdFVahIhzmRmKAQo8kecSBOD9k", oauth_version="1.0"');
+// 	request.send();
+// }
+
+// myCallback = function(data) {
+// 	console.log('ijij');
+// 	var text = '';
+// 	var len = data.length;
+// 	for (var i = 0; i < len; i++) {
+// 		console.log(data[i]);
+// 	}
+// }
