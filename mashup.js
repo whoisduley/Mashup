@@ -6,14 +6,20 @@
 
 var list = [];
 
-run = function() {
+getTags = function() {
 
 	var request = new XMLHttpRequest();
 
-  	request.onreadystatechange = function(){
+	// Takes the article url from the input and glues it on the api request.
+	var urlInput = document.getElementById('urlInput');
+   	var theResource = 'http://api.diffbot.com/v3/article?token=538182bfa76b57bd13b874c35a0f3f47&fields=tags&url=' + urlInput.value;
 
-	  	if (request.readyState == 4)   //
-	     	if (request.status == 200) {  //successful request OK
+   	request.open('GET', theResource , true)
+
+   	request.onreadystatechange = function(){
+
+	  	if (request.readyState == 4)   
+	     	if (request.status == 200) {
 			
 			// Parses the JSON response into an object
 	        	var res = eval('(' + request.responseText + ')');
@@ -24,17 +30,32 @@ run = function() {
 	        		var a = res.objects[0].tags[i].label;
 	        		list.push(a);
 	        	}
+	       		console.log(list);
+	       		for (var j = 0; j < list.length; j++) {
+	       			getInfo(list[j]);
+	       		}
 	        }
-	    console.log(list);
 	}
-
-	// Takes the article url from the input and glues it on the api request.
-	var urlInput = document.getElementById('urlInput');
-   	var theResource = 'http://api.diffbot.com/v3/article?token=538182bfa76b57bd13b874c35a0f3f47&fields=tags&url=' + urlInput.value;
-
-   	request.open('GET', theResource , true)
-
-	//request.open('GET','urlread.cgi',true)
-
 	request.send(null)
 }
+
+getInfo = function(tag) {
+	var request = new XMLHttpRequest();
+
+	var query = tag;
+	var theResource = 'http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?MaxHits=1&QueryString=' + query;
+
+   	request.open('GET', theResource , true);
+   	// Changes response from XML to JSON
+   	request.setRequestHeader('Accept', 'application/json');
+	request.send();
+
+	request.onreadystatechange = function() {
+		if (request.readyState == 4) 
+			if(request.status == 200) {
+			var res = eval('(' + request.responseText + ')');
+			console.log(tag + ' : ' + res.results[0].description);
+		}
+	}
+}
+
