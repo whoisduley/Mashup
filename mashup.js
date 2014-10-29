@@ -20,17 +20,30 @@ getTags = function() {
 
 	  	if (request.readyState == 4)   
 	     	if (request.status == 200) {
-			
-			// Parses the JSON response into an object
+
+	     		console.log(request.responseText);
+
+				// Parses the JSON response into an objects
 	        	var res = eval('(' + request.responseText + ')');
-			
-			// Takes the tags from the object and pushes them into an array.
-			// http://json.parser.online.fr/
+
+				// Takes the tags from the object and pushes them into an array.
+				// http://json.parser.online.fr/
+
+				var title = document.createElement('li');
+				title.id = 'title';
+				title.innerHTML = res.objects[0].title;
+				var headings = document.getElementById('headings');
+				headings.appendChild(title);
+
+				var author = document.createElement('li');
+				author.id = 'author';
+				author.innerHTML = 'Author : ' + res.objects[0].author;
+				headings.appendChild(author);
+
 	        	for (var i = 0; i < 5; i++) {
 	        		var a = res.objects[0].tags[i].label;
 	        		list.push(a);
 	        	}
-	       		console.log(list);
 	       		for (var j = 0; j < list.length; j++) {
 	       			getInfo(list[j]);
 	       		}
@@ -55,12 +68,14 @@ getInfo = function(tag) {
 			if(request.status == 200) {
 			var res = eval('(' + request.responseText + ')');
 			var item = document.createElement('li');
+			item.class = 'items';
 			item.innerHTML = tag + ' : ' + res.results[0].description;
-			var display = document.getElementById('display');
-			display.appendChild(item);
+			var items = document.getElementById('items');
+			items.appendChild(item);
 		}
 	}
 }
+
 
 // getTweets = function(tag) {
 // 	var request = new XMLHttpRequest();
@@ -69,7 +84,7 @@ getInfo = function(tag) {
 // 	var theResource = 'https://api.twitter.com/1.1/search/tweets.json?q=corgi&callback=myCallback';
 
 // 	request.open('GET', theResource, true);
-// 	request.setRequestHeader('Authorization', 'OAuth oauth_consumer_key="njWdPM26IKC5fVwP9X7WLXQrk", oauth_nonce="a773cbf49fe2757b08a0958ae8b50876", oauth_signature="KKsVEKatHaUGBeDjEWKuwdKnimU%3D", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1414610677", oauth_token="192993213-Y18fiSCH9ScnBiZdFVahIhzmRmKAQo8kecSBOD9k", oauth_version="1.0"');
+// 	request.setRequestHeader();
 // 	request.send();
 // }
 
