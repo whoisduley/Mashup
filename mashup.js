@@ -1,9 +1,3 @@
-// 3 Columns, 3 tweets each, embed tweets not feed or collections
-// Key:Secret
-// njWdPM26IKC5fVwP9X7WLXQrk:oSgM4BfF3XdLdLAGci1Cz6bqgfi9ix3nUrhn55uetBhvjLVyN3
-// Base64 Encoded
-// bmpXZFBNMjZJS0M1ZlZ3UDlYN1dMWFFyazpvU2dNNEJmRjNYZExkTEFHY2kxQ3o2YnFnZmk5aXgzblVyaG41NXVldEJodmpMVnlOMw==
-
 var list = [];
 
 getTags = function() {
@@ -21,14 +15,11 @@ getTags = function() {
 	  	if (request.readyState == 4)   
 	     	if (request.status == 200) {
 
-	     		console.log(request.responseText);
-
 				// Parses the JSON response into an objects
 	        	var res = eval('(' + request.responseText + ')');
 
 				// Takes the tags from the object and pushes them into an array.
 				// http://json.parser.online.fr/
-
 				var title = document.createElement('li');
 				title.id = 'title';
 				title.innerHTML = res.objects[0].title;
@@ -40,9 +31,25 @@ getTags = function() {
 				author.innerHTML = 'Author : ' + res.objects[0].author;
 				headings.appendChild(author);
 
+				var date = document.createElement('li');
+				date.id = 'date';
+				date.innerHTML = 'Date : ' + res.objects[0].date;
+				headings.appendChild(date);
+
+				var image = document.createElement('IMG');
+				image.id = 'image';
+				image.src = res.objects[0].images[0].url;
+				headings.appendChild(image);
+
+
 	        	for (var i = 0; i < 5; i++) {
-	        		var a = res.objects[0].tags[i].label;
-	        		list.push(a);
+	        		if (res.objects[0].tags[i]) {
+		        		var a = res.objects[0].tags[i].label;
+		        		list.push(a);
+		        	}
+		        	else {
+		        		break;
+		        	}
 	        	}
 	       		for (var j = 0; j < list.length; j++) {
 	       			getInfo(list[j]);
@@ -69,30 +76,29 @@ getInfo = function(tag) {
 			var res = eval('(' + request.responseText + ')');
 			var item = document.createElement('li');
 			item.class = 'items';
-			item.innerHTML = tag + ' : ' + res.results[0].description;
+
+			var tags = document.createElement('li');
+			tags.setAttribute("class", "tags");
+			tags.innerHTML = tag;
+			item.innerHTML = res.results[0].description;
+
+			// var link = document.createElement('li');
+			// link.setAttribute('class', 'links');
+			// var read = 'Read More';
+			// var URL = "http://www.w3schools.com/jsref/prop_html_innerhtml.asp";
+			// read.link(URL);
+			// link.innerHTML(read);
+			//link.innerHTML = 'Read More';
+			//link.href = 'http://www.w3schools.com/jsref/prop_html_innerhtml.asp';
+
+			// var link = document.createTextNode('Read More');
+			// var URL = "http://www.w3schools.com/jsref/prop_html_innerhtml.asp";
+			// link.link(URL);
+
+
 			var items = document.getElementById('items');
-			items.appendChild(item);
+			items.appendChild(tags);
+			items.appendChild(item);	
 		}
 	}
 }
-
-
-// getTweets = function(tag) {
-// 	var request = new XMLHttpRequest();
-
-// 	var query = tag;
-// 	var theResource = 'https://api.twitter.com/1.1/search/tweets.json?q=corgi&callback=myCallback';
-
-// 	request.open('GET', theResource, true);
-// 	request.setRequestHeader();
-// 	request.send();
-// }
-
-// myCallback = function(data) {
-// 	console.log('ijij');
-// 	var text = '';
-// 	var len = data.length;
-// 	for (var i = 0; i < len; i++) {
-// 		console.log(data[i]);
-// 	}
-// }
