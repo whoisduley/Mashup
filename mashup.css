@@ -68,3 +68,23 @@ h1 {
 	display: block;
 	margin-left: 10px;
 }
+
+.links {
+	margin-left: 10px;
+	text-decoration: none;
+}
+
+a:link, a:visited {
+    display: block;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #55acee;
+    width: 120px;
+    text-align: center;
+    padding: 4px;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    background-color: #55acdd;
+}

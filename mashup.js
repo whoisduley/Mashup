@@ -82,23 +82,15 @@ getInfo = function(tag) {
 			tags.innerHTML = tag;
 			item.innerHTML = res.results[0].description;
 
-			// var link = document.createElement('li');
-			// link.setAttribute('class', 'links');
-			// var read = 'Read More';
-			// var URL = "http://www.w3schools.com/jsref/prop_html_innerhtml.asp";
-			// read.link(URL);
-			// link.innerHTML(read);
-			//link.innerHTML = 'Read More';
-			//link.href = 'http://www.w3schools.com/jsref/prop_html_innerhtml.asp';
-
-			// var link = document.createTextNode('Read More');
-			// var URL = "http://www.w3schools.com/jsref/prop_html_innerhtml.asp";
-			// link.link(URL);
-
+			var link = document.createElement('a');
+			link.setAttribute('class', 'links');
+			link.innerHTML = 'Read More';
+			link.href = 'http://en.wikipedia.org/wiki/' + tag;
 
 			var items = document.getElementById('items');
 			items.appendChild(tags);
-			items.appendChild(item);	
+			items.appendChild(item);
+			items.appendChild(link);	
 		}
 	}
 }
